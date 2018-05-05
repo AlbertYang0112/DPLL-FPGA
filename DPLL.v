@@ -23,6 +23,6 @@ module DPLL(
     input oscInput,
     output dpllOutput
     );
-
-
+    assign dpllOutput = baseClockInput ^ oscInput;
 endmodule
+    
