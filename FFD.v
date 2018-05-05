@@ -27,7 +27,7 @@ module FFD(
     );
 
     always @(posedge clk or negedge reset) begin
-        if(reset == 0)
+        if(!reset)
             sigOut = 0;
         else begin
             sigOut <= sigIn;

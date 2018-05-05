@@ -52,7 +52,7 @@ module DLF(
         endcase
     end
     always @(posedge clk, negedge reset) begin
-        if(reset) 
+        if(!reset) 
             count <= 0;
         else if(enable) begin
             if(dirSig) begin
