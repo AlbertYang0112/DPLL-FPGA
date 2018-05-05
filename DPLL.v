@@ -9,7 +9,7 @@
 // Project Name:   DPLL-FPGA
 // Target Devices: XC6SLX9-2FTG256
 // Tool versions: 
-// Description:     The digital phase lock loop.
+// Description:     The digital phase-locked loop.
 //
 // Dependencies: 
 //
