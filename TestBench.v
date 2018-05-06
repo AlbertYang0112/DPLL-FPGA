@@ -28,14 +28,17 @@ module TestBench;
 	reg baseClockInput;
 	reg oscInput;
 	reg sysClk;
+	reg reset;
 
 	// Outputs
 	wire dpllOutput;
+	wire xorOutput;
 
 	// Instantiate the Unit Under Test (UUT)
 	DPLL uut (
 		.baseClockInput(baseClockInput), 
 		.oscInput(oscInput), 
+		.reset(reset),
 		.dpllOutput(dpllOutput)
 	);
 
@@ -44,14 +47,18 @@ module TestBench;
 		baseClockInput = 0;
 		oscInput = 0;
         sysClk=0;
+		reset = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
         
 		// Add stimulus here
 
+		reset = 1;
+
+
 	end
-    always #20 oscInput =~ oscInput;
+    always #1 oscInput =~ oscInput;
     always #50 baseClockInput =~ baseClockInput;
     //always #1 sysClk =~ sysClk;
       

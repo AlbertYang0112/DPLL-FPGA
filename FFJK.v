@@ -23,20 +23,22 @@ module FFJK(
     input reset,
     input j,
     input k,
-    output reg out
-    output out_n
+    output reg out,
+    output reg out_n
     );
-    if(!reset) begin
-        q <= 0b'0;
+
+    always @(posedge clk or negedge reset) begin
+        if(!reset) begin
+            out <= 0;
+        end
+        else begin
+            case({j, k})
+                2'b00: begin out <= out; out_n <= out_n; end
+                2'b01: begin out <= 1'b0; out_n <= 1'b1; end
+                2'b10: begin out <= 1'b1; out_n <= 1'b0; end
+                2'b11: begin out <= ~out; out_n <= ~out_n; end
+            endcase
+        end
     end
-    else begin
-        case({j, k})
-            2'b00: q <= q;
-            2'b01: q <= 1'b0;
-            2'b10: q <= 1'b1;
-            2'b11: q <= ~q;
-        endcase
-    end
-    assign out_n = ~out;
 
 endmodule

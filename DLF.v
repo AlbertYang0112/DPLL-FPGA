@@ -32,7 +32,7 @@ module DLF(
     reg [19:0]kTop;
 
     always @(kMode) begin
-        case()
+        case(kMode)
             4'b0001:kTop<=7;
             4'b0010:kTop<=15;
             4'b0011:kTop<=31;

@@ -22,7 +22,7 @@ module FFD(
     input clk,
     input reset,
     input sigIn,
-    output reg sigOut
+    output reg sigOut,
     output sigOut_n
     );
 

@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 100ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -24,6 +24,6 @@ module PhaseDetector(
     output errSig
     );
 
-    errSig = inputSigA ^ inputSigB;
+    assign errSig = inputSigA ^ inputSigB;
 
 endmodule
