@@ -21,20 +21,25 @@
 module NDivider(
     input clk,
     input reset,
- .   input [7:0] N,
-    output out
+    input [7:0] N,
+    output reg out
     );
 
-    reg cnt[7:0];
+    reg [7:0]cnt;
     always @(posedge clk or negedge reset) begin
         if(!reset)
+        begin
             cnt <= N;
+            out <= 0;
+        end
         else begin
-            if(!cnt)
+            if(cnt != 8'd0)
                 cnt <= cnt - 1;
             else
+            begin
                 out <= ~out;
                 cnt <= N;
+            end
         end
     end
 
