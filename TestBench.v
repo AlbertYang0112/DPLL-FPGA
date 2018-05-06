@@ -33,13 +33,20 @@ module TestBench;
 	// Outputs
 	wire dpllOutput;
 	wire xorOutput;
+	wire dlfCarry;
+	wire dlfBorrow;
+	wire DCOout;
 
 	// Instantiate the Unit Under Test (UUT)
 	DPLL uut (
 		.baseClockInput(baseClockInput), 
 		.oscInput(oscInput), 
 		.reset(reset),
-		.dpllOutput(dpllOutput)
+		.dpllOutput(dpllOutput),
+		.dpdOut(xorOutput),
+		.dlfCarry(dlfCarry),
+		.dlfBorrow(dlfBorrow),
+		.DCOout(DCOout)
 	);
 
 	initial begin
@@ -59,7 +66,7 @@ module TestBench;
 
 	end
     always #1 oscInput =~ oscInput;
-    always #50 baseClockInput =~ baseClockInput;
+    always #10 baseClockInput =~ baseClockInput;
     //always #1 sysClk =~ sysClk;
       
 endmodule

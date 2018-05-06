@@ -24,7 +24,10 @@ module DPLL(
     input reset,
     output dpllOutput,
     // Signal for debug
-    output xorOut
+    output dpdOut,
+    output dlfCarry,
+    output dlfBorrow,
+    output DCOout
     );
 
     reg [3:0] kMode = 4'b0011;
@@ -37,7 +40,7 @@ module DPLL(
     );
 
     DLF KCounter(
-        .clk(sysClk),
+        .clk(oscInput),
         .reset(reset),
         .dirSig(dpdOut),
         .enable(1),
@@ -47,7 +50,7 @@ module DPLL(
     );
 
     IDCounter DCO(
-        .clk(sysClk),
+        .clk(oscInput),
         .reset(reset),
         .inc(dlfCarry),
         .dec(dlfBorrow),
@@ -62,7 +65,6 @@ module DPLL(
     );
 
     // For debug
-    assign xorOut = dpdOut;
 
     
 

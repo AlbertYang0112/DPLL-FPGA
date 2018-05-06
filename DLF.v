@@ -25,10 +25,12 @@ module DLF(
     input enable,
     input [3:0] kMode,
     output carry,
-    output borrow
+    output borrow,
+    // For debug
+    output reg [19:0] count
     );
 
-    reg [19:0]count;
+    //reg [19:0]count;
     reg [19:0]kTop;
 
     always @(kMode) begin
