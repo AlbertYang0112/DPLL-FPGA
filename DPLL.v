@@ -27,11 +27,14 @@ module DPLL(
     output dpdOut,
     output dlfCarry,
     output dlfBorrow,
-    output DCOout
+    output DCOout,
+    output [19:0]counter
     );
 
     reg [3:0] kMode = 4'b0011;
-    reg [7:0] multN = 8'd4;
+    reg [7:0] multN = 8'd32;
+    reg [7:0] H = 8'd16;
+    wire idclock;
     
     PhaseDetector DPD(
         .inputSigA(baseClockInput),
@@ -46,11 +49,19 @@ module DPLL(
         .enable(1),
         .kMode(kMode),
         .carry(dlfCarry),
-        .borrow(dlfBorrow)        
+        .borrow(dlfBorrow),
+        .count(counter)
+    );
+
+    NDivider oscDIV(
+        .clk(oscInput),
+        .reset(reset),
+        .N(H),
+        .out(HDivClk)
     );
 
     IDCounter DCO(
-        .clk(oscInput),
+        .clk(HDivClk),
         .reset(reset),
         .inc(dlfCarry),
         .dec(dlfBorrow),

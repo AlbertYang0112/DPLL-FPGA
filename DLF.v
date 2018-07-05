@@ -57,7 +57,7 @@ module DLF(
         if(!reset) 
             count <= 0;
         else if(enable) begin
-            if(dirSig) begin
+            if(!dirSig) begin
                 if(count == kTop)
                     count <= 0;
                 else
