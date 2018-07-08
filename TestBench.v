@@ -27,7 +27,6 @@ module TestBench;
 	// Inputs
 	reg baseClockInput;
 	reg oscInput;
-	reg sysClk;
 	reg reset;
 
 	// Outputs
@@ -47,7 +46,10 @@ module TestBench;
 		.dpdOut(xorOutput),
 		.dlfCarry(dlfCarry),
 		.dlfBorrow(dlfBorrow),
+		.inc(inc),
+		.dec(dec),
 		.DCOout(DCOout),
+		.HDivClk(HDivClk),
 		.counter(counter)
 	);
 
@@ -55,7 +57,6 @@ module TestBench;
 		// Initialize Inputs
 		baseClockInput = 0;
 		oscInput = 0;
-        sysClk=0;
 		reset = 0;
 
 		// Wait 100 ns for global reset to finish
@@ -68,8 +69,7 @@ module TestBench;
 
 	end
     always #50 oscInput =~ oscInput;
-    always #51200 baseClockInput =~ baseClockInput;
-    //always #1 sysClk =~ sysClk;
+    always #510 baseClockInput =~ baseClockInput;
       
 endmodule
 

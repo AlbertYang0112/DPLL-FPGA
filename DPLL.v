@@ -27,12 +27,15 @@ module DPLL(
     output dpdOut,
     output dlfCarry,
     output dlfBorrow,
+    output inc,
+    output dec,
     output DCOout,
+    output HDivClk,
     output [19:0]counter
     );
 
     reg [3:0] kMode = 4'b0011;
-    reg [7:0] multN = 8'd32;
+    reg [7:0] multN = 8'd1;
     reg [7:0] H = 8'd16;
     wire idclock;
     
@@ -61,11 +64,13 @@ module DPLL(
     );
 
     IDCounter DCO(
-        .clk(HDivClk),
+        .clk(oscInput),
         .reset(reset),
-        .inc(dlfCarry),
-        .dec(dlfBorrow),
-        .IDout(DCOout)
+        .incIn(dlfCarry),
+        .decIn(dlfBorrow),
+        .IDout(DCOout),
+        .inc(inc),
+        .dec(dec)
     );
 
     NDivider DIV(
