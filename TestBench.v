@@ -69,7 +69,7 @@ module TestBench;
 
 	end
     always #50 oscInput =~ oscInput;
-    always #510 baseClockInput =~ baseClockInput;
+    always #51000 baseClockInput =~ baseClockInput;
       
 endmodule
 

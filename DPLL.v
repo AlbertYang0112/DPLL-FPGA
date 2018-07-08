@@ -35,8 +35,8 @@ module DPLL(
     );
 
     reg [3:0] kMode = 4'b0011;
-    reg [7:0] multN = 8'd1;
-    reg [7:0] H = 8'd16;
+    reg [7:0] multN = 8'd32;
+    reg [7:0] H = 8'd32;
     wire idclock;
     
     PhaseDetector DPD(
@@ -64,7 +64,7 @@ module DPLL(
     );
 
     IDCounter DCO(
-        .clk(oscInput),
+        .clk(HDivClk),
         .reset(reset),
         .incIn(dlfCarry),
         .decIn(dlfBorrow),
