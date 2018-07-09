@@ -56,12 +56,12 @@ module TestBenchIDC;
         reset = 1;
         #200 inc = 1;
         #10 inc = 0;
-        #10 inc = 1;
-        #10 inc = 0;
-        #10 inc = 1;
-        #10 inc = 0;
-        #10 inc = 1;
-        #10 inc = 0;
+        //#10 inc = 1;
+        //#10 inc = 0;
+        //#10 inc = 1;
+        //#10 inc = 0;
+        //#10 inc = 1;
+        //#10 inc = 0;
     end
     always #10 clock = ~clock;
 
