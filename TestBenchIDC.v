@@ -28,11 +28,19 @@ module TestBenchIDC;
     
     // Outputs
     wire DCOout;
+    wire incDelayed;
+    wire decDelayed;
+    wire incIgn;
+    wire decIgn;
     IDCounter DCO(
         .clk(clock),
         .reset(reset),
-        .inc(inc),
-        .dec(dec),
+        .incIn(inc),
+        .decIn(dec),
+        .inc(incDelayed),
+        .dec(decDelayed),
+        .incIgnore(incIgn),
+        .decIgnore(decIgn),
         .IDout(DCOout)
     );
 
@@ -47,13 +55,13 @@ module TestBenchIDC;
 
         reset = 1;
         #200 inc = 1;
-        #40 inc = 0;
-        #400 dec = 1;
-        #20 dec = 0;
-        #400 inc = 1;
-        #20 inc = 0;
-        #400 dec = 1;
-        #20 dec = 0;
+        #10 inc = 0;
+        #10 inc = 1;
+        #10 inc = 0;
+        #10 inc = 1;
+        #10 inc = 0;
+        #10 inc = 1;
+        #10 inc = 0;
     end
     always #10 clock = ~clock;
 

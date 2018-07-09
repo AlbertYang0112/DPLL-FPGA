@@ -26,7 +26,9 @@ module IDCounter(
     output IDout,
     // Debug Sig
     output reg inc,
-    output reg dec
+    output reg dec,
+    output reg incIgnore,
+    output reg decIgnore
     );
 
     wire Q1, Qn1, Q2, Qn2, Q3, Qn3;
@@ -41,29 +43,40 @@ module IDCounter(
     begin
         inc <= 0;
         dec <= 0;
+        incIgnore <= 0;
+        decIgnore <= 0;
     end
 
-    always @(posedge incIn, posedge clk)
+    always @(posedge incIn, clk)
     begin
-        if(incIn)
+        if(incIn & !incIgnore)
             inc <= incIn;
-        else if(clk)
+        else if(clk & inc & !incIgnore)
+        begin
+            incIgnore <= 1;
+        end
+        else if(!clk & incIgnore & inc)
             inc <= 0;
+        else incIgnore <= 0;
     end
 
     always @(posedge decIn, posedge clk)
     begin
-        if(decIn)
+        if(decIn & !decIgnore)
             dec <= decIn;
-        else if(clk)
+        else if(clk & dec & !decIgnore)
+        begin
             dec <= 0;
+            decIgnore <= 1;
+        end
+        else decIgnore <= 0;
     end
 
-    FFD FFD1(clk, reset, dec, Q1, Qn1);
+    FFD FFD1(clk, reset, decIn, Q1, Qn1);
     FFD FFD3(clk, reset, Q1, Q3, Qn3);
     FFD FFD5(clk, reset, Q3, Q5, Qn5);
 
-    FFD FFD2(clk, reset, inc, Q2, Qn2); 
+    FFD FFD2(clk, reset, incIn, Q2, Qn2); 
     FFD FFD4(clk, reset, Q2, Q4, Qn4); 
     FFD FFD6(clk, reset, Q4, Q6, Qn6);
     assign D7=((Q9 & Qn1 & Q3)|(Q9 & Q5 & Qn3));
